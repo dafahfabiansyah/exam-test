@@ -41,7 +41,7 @@ Route::middleware('auth')->group(function () {
         ->middleware('role:teacher')
         ->name('course.create.question.store');
 
-        Route::resource('courses_questions', CourseQuestionController::class)
+        Route::resource('course_questions', CourseQuestionController::class)
         ->middleware('role:teacher');
 
         // membuat soal untuk student -> teacher
@@ -57,12 +57,12 @@ Route::middleware('auth')->group(function () {
         // menampilkan soal yang telah dijawab -> student
         Route::get('learning/finished/{course}', [LearningController::class, 'learning_finished'])
         ->middleware('role:student')
-        ->name('learning.report_course');
+        ->name('learning.finished.course');
 
         // menampilkan laporan nilai dan soal di course -> student
         Route::get('learning/report/{course}', [LearningController::class, 'learning_report'])
         ->middleware('role:student')
-        ->name('learning.finished_course');
+        ->name('learning.report.course');
 
         // menampilkan semua course yang telah diikuti -> student
         Route::get('/learning', [LearningController::class, 'index'])

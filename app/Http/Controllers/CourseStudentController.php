@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Course;
 use App\Models\CourseStudent;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class CourseStudentController extends Controller
 {
@@ -18,18 +22,61 @@ class CourseStudentController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Course $course)
     {
         //
+        // dd($course);
+        $students = $course->students()->orderBy('id', 'desc')->get();
+        return view('admin.students.add_students', [
+            'course' => $course,
+            'students' => $students,      
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request, Course $course)
     {
         //
-    }
+        $request->validate([
+            'email' => 'required|string',
+        ]);
+
+        $user = User::where('email', $request->email)->first();
+        if(!$user){
+            $error = ValidationException::withMessages([
+                'system_error' => ['Student email unavailable']
+            ]);
+            throw $error;
+        } 
+        $isEnrolled = $course->students()->where('user_id', $user->id)->exists();
+
+        if($isEnrolled){
+            $error = ValidationException::withMessages([
+                'system_error' => ['Student is already enrolled']
+            ]);
+            throw $error;
+        };
+
+        DB::beginTransaction();
+
+        try {
+            $course->students()->attach($user->id);
+            DB::commit();
+            return redirect()->route('dashboard.course.course_students.index', $course);
+             } catch (\Exception $e) {
+                // Rollback transaksi jika terjadi error
+                DB::rollBack();
+        
+                // Lempar exception dengan pesan kesalahan
+                $error = ValidationException::withMessages([
+                    'system_error' => ['System error: ' . $e->getMessage()]
+                ]);
+        
+                throw $error;
+            }
+        }
 
     /**
      * Display the specified resource.

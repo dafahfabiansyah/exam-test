@@ -122,6 +122,14 @@ class CourseController extends Controller
     public function show(Course $course)
     {
         //
+        // $students = Course::find($course->id)->students;
+        $students = $course->students()->orderBy('id', 'desc')->get();
+        $questions = $course->questions()->orderBy('id', 'desc')->get();
+        return view('admin.courses.manage', [
+            'course' => $course,
+            'students' => $students,
+            'questions' => $questions
+        ]);
     }
 
     /**
