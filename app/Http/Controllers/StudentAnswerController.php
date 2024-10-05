@@ -81,12 +81,12 @@ class StudentAnswerController extends Controller
             ->first();
 
         if($nextQuestion) {
-            return redirect()->route('dashboard.learning.finished.course', $course->id);
-            // return redirect()->route('dashboard.learning.course', ['course' => $course->id, 'question' => $nextQuestion->id]);
+            // return redirect()->route('dashboard.learning.finished.course', $course->id);
+            return redirect()->route('dashboard.learning.course', ['course' => $course->id, 'question' => $nextQuestion->id]);
         } 
-        // else {
-        //     return redirect()->route('dashboard.learning.finished.course', $course->id);
-        // }
+        else {
+            return redirect()->route('dashboard.learning.finished.course', $course->id);
+        }
 
     } catch (\Exception $e) {
         DB::rollBack();

@@ -94,22 +94,15 @@
                         </a>
                     </li>
                     <li>
-                        <a href=""
-                            class="p-[10px_16px] flex items-center gap-[14px] rounded-full h-11 transition-all duration-300 hover:bg-[#2B82FE]">
-                            <div>
-                                <img src="{{asset('/images/icons/setting-2.svg')}}" alt="icon">
-                            </div>
-                            <p class="font-semibold transition-all duration-300 hover:text-white">Settings</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="signin.html"
-                            class="p-[10px_16px] flex items-center gap-[14px] rounded-full h-11 transition-all duration-300 hover:bg-[#2B82FE]">
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                        <button type="submit" class="p-[10px_16px] flex items-center w-full gap-[14px] rounded-full h-11 transition-all duration-300 hover:bg-[#2B82FE]">
                             <div>
                                 <img src="{{asset('/images/icons/security-safe.svg')}}" alt="icon">
                             </div>
                             <p class="font-semibold transition-all duration-300 hover:text-white">Logout</p>
-                        </a>
+                        </button>
+                        </form>
                     </li>
                 </ul>
             </div>
