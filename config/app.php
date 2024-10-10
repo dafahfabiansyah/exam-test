@@ -123,4 +123,16 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Package Manifest Cache Path
+    |--------------------------------------------------------------------------
+    |
+    | Di sini kita mengarahkan Laravel untuk menggunakan path yang dapat ditulis
+    | di lingkungan read-only seperti Vercel. Kita set path cache package
+    | manifest ke /tmp.
+    |
+    */
+    'manifest' => env('APP_MANIFEST', storage_path('framework/cache')),
+    
 ];
