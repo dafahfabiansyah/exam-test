@@ -103,7 +103,7 @@
                                 <a href="{{ route('dashboard.courses.show', $course->id) }}" class="flex items-center justify-between font-bold text-sm w-full">
                                     Manage
                                 </a>
-                                <a href="course-students.html"
+                                <a href="{{Route('dashboard.course.course_student.index', $course->id)}}"
                                     class="flex items-center justify-between font-bold text-sm w-full">
                                     Students
                                 </a>

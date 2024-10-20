@@ -95,7 +95,6 @@
                             class="w-full h-[41px] p-[10px_20px] bg-[#6436F1] rounded-full font-bold text-sm text-white transition-all duration-300 hover:shadow-[0_4px_15px_0_#6436F14D] text-center">Start
                             Test</a>
                         @else
-                        {{-- <a href="{{route('dashboard.learning.report.course', $course)}}"" --}}
                         <a href="{{ route('dashboard.learning.report.course', $course) }}"
                             class="w-full h-[41px] p-[10px_20px] bg-[#6436F1] rounded-full font-bold text-sm text-white transition-all duration-300 hover:shadow-[0_4px_15px_0_#6436F14D] text-center">
                             Results</a>
